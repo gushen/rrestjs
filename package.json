@@ -1,0 +1,10 @@
+{
+  "name": "rrestjs",
+  "description": "rrestjs node.js web framework",
+  "version": "0.1.0",
+  "author": "DoubleSpout <snoopyxdy@163.com>",
+  "keywords": ["Restful", "restful", "node.js", "restful node.js", "rrest"],
+  "repository": "git://github.com/DoubleSpout/rrest",
+  "main": "index",
+  "engines": { "node":">= 0.6.5" }
+}

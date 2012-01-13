@@ -1,0 +1,6 @@
+[2012-01-13 09:05:17.030] [DEBUG] rrestjs - debug
+[2012-01-13 09:05:17.030] [INFO] rrestjs - info
+[2012-01-13 09:05:17.030] [WARN] rrestjs - warn
+[2012-01-13 09:05:17.030] [ERROR] rrestjs - error
+[2012-01-13 14:05:58.860] [ERROR] rrestjs - worker 13218 dead!
+[2012-01-13 14:05:58.862] [ERROR] rrestjs - worker has been restarted , the number is: 0
