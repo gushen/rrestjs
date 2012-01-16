@@ -1,8 +1,9 @@
+var path = require('path');
 module.exports = {
 //通用配置
 	server:'rrestjs',     
 	poweredBy: 'node.js',
-	baseDir: __dirname+'/..', //绝对目录地址，下面的目录配置都是根据这个目录拼接的
+	baseDir: path.join(__dirname, '/..'), //绝对目录地址，下面的目录配置都是根据这个目录拼接的
 	favicon:'/favicon.ico',  //favicon存放地址
 	charset: 'utf-8',
 	autoStatic:'static',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录

@@ -1,8 +1,9 @@
+var path = require('path');
 module.exports = {
 //通用配置
 	server:'rrestjs',     
 	poweredBy: 'node.js',
-	baseDir: __dirname+'/..', //绝对目录地址，下面的目录配置都是根据这个目录拼接的
+	baseDir: path.join(__dirname, '/..'), //绝对目录地址，下面的目录配置都是根据这个目录拼接的
 	favicon:'/favicon.ico',  //favicon存放地址
 	charset: 'utf-8',
 	autoStatic:'static',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
@@ -29,7 +30,7 @@ module.exports = {
 	isZlib:true, //是否开启delate和gizp压缩，大并发压缩虽然可以减少传输字节数，但是会影响性能
 	ZlibArray:['text/plain', 'application/javascript', 'text/css', 'application/xml', 'text/html'], //只压缩数组中的content-type响应
 //logger log4js 配置
-	isLog:false, //是否开启日志，过多的记录日志会影响性能，但是能记录系统运行情况
+	isLog:true, //是否开启日志，过多的记录日志会影响性能，但是能记录系统运行情况
 	logLevel:'debug',//['trace','debug','info','warn','error', 'fatal'] 日志等级
 	logPath:'/mylogs/console.log', // "/mylogs/console.log" 日志存放目录
 	logMaxSize:1024*1024*10, //单个日志文件大小

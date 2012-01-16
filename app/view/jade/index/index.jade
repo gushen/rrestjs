@@ -1,0 +1,23 @@
+!!!5
+html
+ head
+  title= pagetitle
+  include ../include/head 
+  body
+  .warp
+    h1 rrestjs（高性能 restful nodejs网站框架）
+    include ../include/nav 
+    p.i_i <strong>rrestjs 框架介绍：</strong><br/><em>rrestjs</em>是在<em>expressjs</em>代码基础上，以全新的结构编写的<em>ndoe.js</em>框架。目标<em>roa</em>和<em>restful</em>，具有高性能和低门槛的特点。<em>rrestjs</em>框架结合了之前<em>RestSpout(轻量级res, req封装)</em>和<em>ClusterPlus(多进程多任务管理)</em>两个模块，具备很多其他<em>node.js</em>框架所没有的一些特性。<br/><a href="http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/" target="_blank">>>查看rrestjs完整特性</a><br/>
+    p.i_i <strong>A、Restful设计模式：</strong><br/>去掉了<em>expressjs</em>的<em>app.get()</em>路由机制，重新拆分客户端请求的<em>uri</em>，直接加载指定模块和执行模块内的方法，如果出错输出<em>500</em>或<em>404</em>。比如用户访问<em>/user/face</em>，访问头像页面，则<em>rrestjs</em>会根据拆分的<em>uri</em>去指定目录<em>require('user')</em>模块，然后执行<em>face</em>方法，省去了正则路由判断，提升性能。<br/>
+    p.i_i <strong>B、原生node.js的API风格：</strong><br/>
+    p.i_i <pre>
+     <em>var http = require('http'),</em>
+     <em>      rrest = require('rrestjs'),</em>
+     <em>      server = http.createServer(rrest(function (req, res) {</em>
+     <em>           res.end('hello world');</em>
+     <em>      })).listen(3000);</em>
+    </pre>
+    p.i_i <br/><br/><a href="http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/" target="_blank">>>其他rrestjs特性详见技术博客</a><br/><br/>
+    p.i_i <strong>框架文件分布：</strong><br/>app：应用文件夹，模版，应用控制器都在这里<br/>logs：日志文件夹<br/>config：配置文件文件夹<br/>lib：框架核心文件<br/>modules：外部模块文件夹<br/>mylogs：日志文件夹<br/>tmp：缓存文件夹<br/>
+    p.i_i <strong>框架性能：</strong><br/>内网单8CPU服务器，在1000和3000客户端并发http请求时的RPS：<br/>裸框架：<em> 20734 req/sec, 12505 req/sec</em><br />小静态文件：<em> 10411 req/sec, 10134 req/sec</em><br />jade模版输出：<em> 12584 req/sec, 10440 req/sec</em><br />
+include ../include/foot
