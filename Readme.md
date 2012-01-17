@@ -4,6 +4,13 @@
 
   如果想运行expamle代码，请将config文件中的config.js修改为加载example_config.js, 注: config中的除了baseDir是绝对路径外，其他路径全部都是相对于baseDir的绝对路径。
 
+##性能测试
+
+  性能测试地址，对比node.js, expressjs和rrestjs: http://snoopyxdy.blog.163.com/blog/static/6011744020120135424340/
+
+  rrestjs和expressjs功能对比: http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/
+
+
 ##简单的代码风格：一个hello world的例子
 
 
