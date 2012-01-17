@@ -1,5 +1,5 @@
 var http = require('http'),
-	rrest = require('./'),
+	rrest = require('./index'),
 	app = require('./app/app'),
     server = http.createServer(rrest(function (req, res){
 		app(req, res);
