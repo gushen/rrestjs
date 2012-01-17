@@ -20,6 +20,10 @@
 
   目前是v1.0版本, 未经过严格测试, 目前仅供学习参考
 
+##config
+ 
+  可以根据config.js中加载不同的config文件来达到生产环境一套配置，开发环境一套配置，也可以任意在config配置文件增加配置项, 用来扩充一些常量.获取方法: require('rrestjs').config
+
 
 ##API
   
@@ -63,7 +67,7 @@
 
   Response.download(filepath, [callback]): 功能同上，这里会加一个下载的http响应头
 
-  Response.clearcookie(name): 清楚指定名称的cookie值 
+  Response.clearcookie(name): 清除指定名称的cookie值 
 
   Response.cookie(name, val, [options]): 设置客户端cookie, 名/值, options:{maxAge:过期时间(毫秒), path:'/', httponly:true, domain:域名, secure:false(https上传输)};(注: 这里修正了expressjs的一个bug, 如需设置多个cookie, 多次调用此方法)
 
