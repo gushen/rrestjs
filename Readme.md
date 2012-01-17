@@ -25,7 +25,7 @@
   
   api属性和方法都为小写, 加上"()"的为方法，没有的是属性。
 
-  ##Request: request对象，是IncomingMessage的一个实例;
+##Request: request对象，是IncomingMessage的一个实例;
   
   Request.path: 拆分过后的uri数组,例如访问/user/face/spout, 则拆分成: ['user', 'face', 'spout'], 如果访问'/'则拆分成['index', 'index'], 会自动补足2位;
 
@@ -49,7 +49,7 @@
 
 
 
-  ##Response: response对象，是ServerResponse的一个实例
+##Response: response对象，是ServerResponse的一个实例
    
   Response.cache(type, maxAge): 设置请求缓存头，让浏览器对此uri请求缓存,type: public, private等, maxAge: 缓存的时间,单位毫秒; 
 
@@ -74,19 +74,19 @@
   Response.render(template, [options, callback]): 目前仅支持一种jade模版，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring
   
   
-  AutoRequire: 自动加载 /modules 文件夹中的模块, 可以在config配置文件中详细配置开启或者例外
+##AutoRequire: 自动加载 /modules 文件夹中的模块, 可以在config配置文件中详细配置开启或者例外
 
   require('rrestjs').mod['文件名']: 文件名会自动将后缀.js去掉, 例如在modules/as.js模块自动加载进来, 使用方法:  require('rrestjs').mod['as'];
 
   
-  MongdbConnect: Mongodb数据库连接,可在config配置文件中详细配置, 比如: 连接数, 连接端口等等
+##MongdbConnect: Mongodb数据库连接,可在config配置文件中详细配置, 比如: 连接数, 连接端口等等
 
   require('rrestjs').mongo(callback, [dbname]): callback三个参数:err, db, release方法, err表示错误, db是Mongodb数据库实例, release()方法执行表示归还连接到连接池, 操作完数据库一定要执行release(); 出错err会自动归还
 
   require('rrestjs').mpool(callback, [dbname]): genricpool方法, acquire.mpool(callback, dbname)表示去连接池中获取一个连接, callback接收2个参数err, db;无论err与否, 都需要mpool.release(db); 归还连接到连接池。建议使用上面的mongo方法。
 
   
-  restlog: 全局变量, 日志对象详细配置, 例如是否开启, 如何分级, 如何切分可在config文件中详细配置
+##restlog: 全局变量, 日志对象详细配置, 例如是否开启, 如何分级, 如何切分可在config文件中详细配置
 
   restlog.info: 等级info日志, 测试用, 生产环境建议关闭
 
