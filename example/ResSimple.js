@@ -1,12 +1,12 @@
 var http = require('http'),
 	rrest = require('../'),
     server = http.createServer(rrest(function (req, res) {
-		res.cache('public');
-		res.set('X-Powered-By', 'RestSpout');
-		res.get('X-Powered-By');
-		res.clearcookie('RestSpout');
+		res.cache('public', 10000);
+		res.clearcookie('rrSid');
 		res.cookie('RestSpout', 'I am coming!');
-		res.redirect('http://www.baidu.com')
+		
+		//res.redirect('http://www.baidu.com')
+
 		//res.send('<body>API</body>');
-		//res.sendjson({name:'spout', age:27});		  
+		res.sendjson({name:'spout', age:27},200, false, false);		  
 	})).listen(3000);

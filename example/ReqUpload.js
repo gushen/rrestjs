@@ -11,9 +11,10 @@ var http = require('http'),
 					res.write('req.referer or req.referrer:'+req.referer+'<br />');
 					res.write('req.UserAgent:'+req.useragent+'<br />');
 					res.write('req.GetParam:'+JSON.stringify(req.getparam)+'<br />');
+					res.write('req.PostParam:'+JSON.stringify(req.postparam)+'<br />');
 					res.write('req.cookie:'+JSON.stringify(req.cookie)+'<br />');
 					res.write('<br/><br/><b>we got the multiform data down list:</b><br/><br/>')
-					res.write(util.inspect(req.MultiForm));
+					res.write(util.inspect(req.file));
 					res.end('</body>');
 			}
 			else{

@@ -54,9 +54,9 @@ module.exports = {
 //自动加载模块 配置
 	AutoRequire:true, //是否开启模块自动加载，加载只有的模块可以使用  rrest.mod.模块名 来进行调用
 	ModulesFloder:'/modules', //自动加载模块的存放目录,只读一层目录
-	ModulesExcept:['exc'], //自动加载模块目录中例外不加载的模块
+	ModulesExcept:['captcha'], //自动加载模块目录中例外不加载的模块
 //ip地址访问过滤
-	IPfirewall:true, //是否开启IP过滤，开启会影响性能。
+	IPfirewall:false, //是否开启IP过滤，开启会影响性能。
 	ExceptIP:/^10.1.49.224$/, //正则表达式，匹配成功表示此IP可以正常访问,白名单
 	ExceptPath:['/user'],//例外的路径，如果用户访问这个路径，无论在不在ip过滤列表中，都可以正常使用，白名单
 	NotAllow:'No permission!', //禁止访问响应给客户端的信息

@@ -5,7 +5,7 @@ var http = require('http'),
 			if(err) return console.log(err);	
 			//writen server listen function here
 			var	server = http.createServer(rrest(function (req, res){
-					res.send('process '+data.num+' is working : hello world everyone!!!!!!!!!!!!!!!!!!!!!!!!');
+					res.send('process '+data.num+' is working : hello world everyone!!');
 				})).listen(3000);		
 		},
 		DeadCallback:function(err, data){
