@@ -1,12 +1,13 @@
 # rrestjs —— HIgh performance node.js ROA  RESTFUL  web framework
 
-##rrestjs是一款基于expressjs代码开发的高性能node.js框架，由于重新编写了框架组织架构，比expressjs整体性能提升大约10%，实用功能也更加丰富，API和代码风格相比expressjs更简单易懂
+  rrestjs是一款基于expressjs代码开发的高性能node.js框架，由于重新编写了框架组织架构，比expressjs整体性能提升大约10%，实用功能也更加丰富，API和代码风格相比expressjs更简单易懂
 
-##如果想运行expamle代码，请将config文件中的config.js修改为加载example_config.js, 注: config中的除了baseDir是绝对路径外，其他路径全部都是相对于baseDir的绝对路径。
+  如果想运行expamle代码，请将config文件中的config.js修改为加载example_config.js, 注: config中的除了baseDir是绝对路径外，其他路径全部都是相对于baseDir的绝对路径。
 
 ##简单的代码风格：一个hello world的例子
 
-  var http = require('http'),
+
+      var http = require('http'),
 
       rrest = require('rrest'),
 
@@ -16,6 +17,7 @@
 
 	})).listen(3000);
 
+
   目前是v1.0版本, 未经过严格测试, 目前仅供学习参考
 
 
@@ -23,7 +25,7 @@
   
   api属性和方法都为小写, 加上"()"的为方法，没有的是属性。
 
-  Request: request对象，是IncomingMessage的一个实例;
+  ##Request: request对象，是IncomingMessage的一个实例;
   
   Request.path: 拆分过后的uri数组,例如访问/user/face/spout, 则拆分成: ['user', 'face', 'spout'], 如果访问'/'则拆分成['index', 'index'], 会自动补足2位;
 
@@ -46,7 +48,8 @@
   Request.delsession():摧毁session方法, 摧毁当前的sessionid;
 
 
-  Response: response对象，是ServerResponse的一个实例
+
+  ##Response: response对象，是ServerResponse的一个实例
    
   Response.cache(type, maxAge): 设置请求缓存头，让浏览器对此uri请求缓存,type: public, private等, maxAge: 缓存的时间,单位毫秒; 
 
@@ -107,25 +110,28 @@
   
   options设置为:
 
-  logger:Boolean || function(str){},//布尔值，用来表示是否打开日志,或者是function，用来记录日志的方法,参数是str输出字符串, 默认关闭，建议关闭
 
-  num:Integer, //整数，启动几个子进程, 可在config中配置
+    logger:Boolean || function(str){},//布尔值，用来表示是否打开日志,或者是function，用来记录日志的方法,参数是str输出字符串, 默认关闭，建议关闭
 
-  CreateCallback:function(err, num){}, //函数，当创建子进程完成后执行，返回的参数是num整形表示第几个child，和进程ID
+    num:Integer, //整数，启动几个子进程, 可在config中配置
+  
+    CreateCallback:function(err, num){}, //函数，当创建子进程完成后执行，返回的参数是num整形表示第几个child，和进程ID
 
-  DeadCallback:function(err, num){},//函数，当子进程死掉时执行，返回的参数是num整形表示第几个child，和进程ID
+    DeadCallback:function(err, num){},//函数，当子进程死掉时执行，返回的参数是num整形表示第几个child，和进程ID
 
-  RestartCallback:function(err, num){},//函数，当子进程重启时执行，返回的参数是num整形表示第几个child，和进程ID
+    RestartCallback:function(err, num){},//函数，当子进程重启时执行，返回的参数是num整形表示第几个child，和进程ID
 
-  reload: 布尔值或者目录, //当为false时关闭自动重启功能, 否则监听指定目录, 可在config中配置
+    reload: 布尔值或者目录, //当为false时关闭自动重启功能, 否则监听指定目录, 可在config中配置
 
-  *注意：reload只有在启动一个子进程的情况下才工作良好，并且reload会遍历监听设定目录下的所有目录，请妥善设定监听目录，默认config配置目录
+    *注意：reload只有在启动一个子进程的情况下才工作良好，并且reload会遍历监听设定目录下的所有目录，请妥善设定监听目录，默认config配置目录
 
-  *childobj = {num:num, pid:pid}//执行ClusterPlus()返回的子进程运行情况对象
+    *childobj = {num:num, pid:pid}//执行ClusterPlus()返回的子进程运行情况对象
+
 
   以下是开启4个进程监听4个端口的代码, 可以将config中ClusterReload设置为一个指定目录, 一旦此目录文件发生改变将重启自动node.js进程(注: 开启此功能必须将子进程数设置为 1);
 
-  var http = require('http'),
+
+        var http = require('http'),
 
 	rrest = require('../'),
 
@@ -148,6 +154,7 @@
 
 	});
 
+
   
 ##AsyncProxy
 
@@ -155,7 +162,8 @@
 
   下面是一个不定个数的异步处理的例子:
   
-  var as = new require('rrestjs').AsyncProxy(), //其他代码相同，如果这里 new AsyncProxy(true), 则表示链式调用, 异步处理将依次执行, as.prev对象将能得到上一次异步处理的data数据
+     
+      var as = new require('rrestjs').AsyncProxy(), //其他代码相同，如果这里 new AsyncProxy(true), 则表示链式调用, 异步处理将依次执行, as.prev对象将能得到上一次异步处理的data数据
 
       asarray=[], 
 
@@ -177,13 +185,13 @@
 
       len = array.length; //注这里的array就是异步处理需要的内容
   
-  while(len--){
+      while(len--){
   
-      asarray.push(asfunc(array[len])); //依次将异步处理函数放入异步处理数组中
+          asarray.push(asfunc(array[len])); //依次将异步处理函数放入异步处理数组中
   
-  }
+      }
   
-  asarray.push(asall); //将最终汇总函数存入数组
+      asarray.push(asall); //将最终汇总函数存入数组
 
-  as.ap.apply(null, asarray);//as.ap方法是入口，参数规则  异步函数1, 异步函数2 ... 回调函数, 这里利用apply调用参数不定长的as.ap方法，此方法将返回一个inter型的total, 表示总共需要返回total个异步处理。
+      as.ap.apply(null, asarray);//as.ap方法是入口，参数规则  异步函数1, 异步函数2 ... 回调函数, 这里利用apply调用参数不定长的as.ap方法，此方法将返回一个inter型的total, 表示总共需要返回total个异步处理。
 
