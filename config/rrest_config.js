@@ -9,6 +9,7 @@ module.exports = {
 	autoStatic:'skin',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
 	staticFolder:'/app/static/skin',  //自动响应静态文件的根目录，比如  http://rrestjs.com/static/rrest.jpg 将返回 baseDir+'/example/static/rrest.jpg' 
 	uploadFolder:'/app/static/skin/upload', //文件上传的临时目录
+	postLimit:1024*1024,//限制上传的postbody大小，单位byte
 	webtitle : 'rrestjs高性能node.js框架',
 	listenport:3000,
 //cluster配置

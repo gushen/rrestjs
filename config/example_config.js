@@ -9,6 +9,7 @@ module.exports = {
 	autoStatic:'static',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
 	staticFolder:'/example/static',  //自动响应静态文件的根目录，比如  http://rrestjs.com/static/rrest.jpg 将返回 baseDir+'/example/static/rrest.jpg' 
 	uploadFolder:'/tmp', //文件上传的临时目录
+	postLimit:1024*1024,//限制上传的postbody大小，单位byte
 //cluster配置
 	isCluster:true, //是否开启多进程集群
 	ClusterNum:1, //开启的进程数
