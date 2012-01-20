@@ -6,7 +6,9 @@
 
 ##项目演示网址：http://rrestjs.cnodejs.net
 
-##npm install rrestjs
+##安装地址：npm install rrestjs
+
+##框架介绍：http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
 
 ##性能测试
 
