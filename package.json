@@ -1,10 +1,17 @@
 {
+  "author": "doublespout <snoopyxdy@163.com> (http://snoopyxdy.blog.163.com)",
   "name": "rrestjs",
-  "description": "rrestjs node.js web framework",
-  "version": "0.1.0",
-  "author": "DoubleSpout <snoopyxdy@163.com>",
-  "keywords": ["Restful", "restful", "node.js", "restful node.js", "rrestjs"],
-  "repository": "git://github.com/DoubleSpout/rrestjs",
-  "main": "index",
-  "engines": { "node":">= 0.6.5" }
+  "description": "HIgh performance node.js ROA & RESTFUL web framework.",
+  "version": "0.0.2",
+  "homepage": "https://github.com/DoubleSpout/rrestjs",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DoubleSpout/rrestjs.git"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "~0.6.6"
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }

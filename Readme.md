@@ -6,6 +6,8 @@
 
 ##项目演示网址：http://rrestjs.cnodejs.net
 
+##npm install rrestjs
+
 ##性能测试
 
   性能测试地址，对比node.js, expressjs和rrestjs: http://snoopyxdy.blog.163.com/blog/static/6011744020120135424340/
