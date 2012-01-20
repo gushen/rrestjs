@@ -60,6 +60,7 @@ module.exports = {
 	ModulesExcept:[], //自动加载模块目录中例外不加载的模块
 //ip地址访问过滤
 	IPfirewall:false, //是否开启IP过滤，开启会影响性能。
+	BlackList:false,//如果是true，表示下面这些是黑名单，如果是false，表示下面这些是白名单，路径设置优先级大于IP
 	ExceptIP:/^10.1.49.224$/, //正则表达式，匹配成功表示此IP可以正常访问,白名单
 	ExceptPath:['/user'],//例外的路径，如果用户访问这个路径，无论在不在ip过滤列表中，都可以正常使用，白名单
 	NotAllow:'No permission!', //禁止访问响应给客户端的信息
