@@ -1,22 +1,26 @@
 void function(win){
 
-	var canvasclip = win.CanvasClip = function canvasclip(canvasid, thumbid, imgsrc){
+	var canvasclip = win.CanvasClip = function canvasclip(canvasid, thumbid, imgsrc, error){
 		if(!(this instanceof canvasclip)) return new canvasclip(canvasid, thumbid, imgsrc);
 		this.canvas = $('#'+canvasid);
 		this.thumb = $('#'+thumbid);
 		this.imgsrc = imgsrc;
 		this.iMouseX = this.iMouseY = 1;
 		this.selection = new Selection(200, 200, 200, 200, this.canvas.width(), this.canvas.height());
+		this.error = error || function(msg){alert(msg);}
 		this.intial();
 	};
 	canvasclip.prototype = {
 	    drawScene:function(){ // main drawScene function
 			var ctx = this.ctx,
-				image = this.image;
+				image = this.image;	
+
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 			 // draw source image
-            ctx.drawImage(image, 0, 0, image.width, image.height);
-		    // and make it darker
+			
+			ctx.drawImage(image, 0, 0, image.width, image.height);
+
+			// and make it darker
 		    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
             ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			// draw selection
@@ -127,29 +131,39 @@ void function(win){
 		intial:function(){
 			var that = this;
 			// loading source image
+			var ctx = this.ctx = this.canvas[0].getContext('2d');
 			this.image = new Image();
-			this.image.onload = function (){}
 			this.image.src = this.imgsrc;
+			this.image.onload = function (){
+			if(this.width<ctx.canvas.width || this.height<ctx.canvas.height) return that.error('image must bigger than :'+ctx.canvas.width+'x'+ctx.canvas.height);
+
+
 			// creating canvas and context objects
-			this.ctx = this.canvas[0].getContext('2d');
 			//绑定事件
-			this.canvas.mousemove(function(e) {
+			that.canvas.mousemove(function(e) {
 				that.mousemove(e);
 				 e.preventDefault();
 				return false;	
 				});
-			this.canvas.mousedown(function(e) {
+			that.canvas.mousedown(function(e) {
 				that.mousedown(e);
 				 e.preventDefault();
 				return false;		
 				});
-			this.canvas.mouseup(function(e) { 
+			that.canvas.mouseup(function(e) { 
 				that.mouseup(e);
 				 e.preventDefault();
 				return false;		
 				});
-			this.drawScene();//画出选择框
-			this.cutcanvas();
+			$(document).mouseup(function(e){
+				that.mouseup(e);
+				e.preventDefault();
+				return false;		
+			})
+			that.drawScene();//画出选择框
+			that.mousemove({pageX:100, pageY:200})
+			that.cutcanvas();
+			}
 			return this;
 		},
 		cutcanvas:function(){
@@ -197,9 +211,9 @@ void function(win){
 		ctx.strokeRect(this.x, this.y, this.w, this.h);
 
 		// draw part of original image
-		//if (this.w > 0 && this.h > 0) {
+		if (this.w > 0 && this.h > 0) {
 			ctx.drawImage(image, this.x, this.y, this.w, this.h, this.x, this.y, this.w, this.h);
-		//}
+		}
 		// draw resize cubes
 		ctx.fillStyle = '#fff';
 		ctx.fillRect(this.x - this.iCSize[0], this.y - this.iCSize[0], this.iCSize[0] * 2, this.iCSize[0] * 2);
