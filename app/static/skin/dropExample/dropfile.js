@@ -34,7 +34,7 @@
 		};
 DropFile.prototype = {
 	ondrop:function(event){
-		return event.preventDefault() && this.saveFiles(this.checkfiles(event.dataTransfer.files));
+		return this.saveFiles(this.checkfiles(event.dataTransfer.files));
 	},
 	oninput:function(files){
 		return this.saveFiles(this.checkfiles(files));
