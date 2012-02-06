@@ -14,7 +14,7 @@
 			url: '',
 			paramname: 'userfile',
 			oninputid : false,
-			maxfiles: 25,
+			maxfiles: 5,
 			maxfilesize: 1024*1024,
 			ondrop:empty,
 			beforeEach: empty,
@@ -27,65 +27,78 @@
 		errors = ["BrowserNotSupported", "TooManyFiles", "FileTooLarge", "OnlySupportImages"],
 		imagesSupport = ['jpeg', 'jpg', 'png', 'gif'],
 		DropFile = function (){
+			this.files = [];
 			this.filesDone = 0;
+			this.filesCount = 0;
 			this.filesLength = 0;
 		};
 DropFile.prototype = {
 	ondrop:function(event){
-		this.files = event.dataTransfer.files;//获得files数组
-		if(this.checkfiles()) opts.ondrop(this.files);
-		return event.preventDefault() && false;
+		return event.preventDefault() && this.saveFiles(this.checkfiles(event.dataTransfer.files));
 	},
 	oninput:function(files){
-		this.files = files;
-		if(this.checkfiles()) opts.ondrop(this.files);
-		return false;
+		return this.saveFiles(this.checkfiles(files));
 	},
-	genArray:function(){//坑爹的files是对象不是数组，将其转化成数组
-		var files = [],
-			pfile;
-		for(var i=0; i<this.filesCount; i++){
-			pfile = this.files[i];
-			files.push(pfile);
+	saveFiles:function(filesary){
+		if(filesary){
+			this.files = this.files.concat(filesary);
+			opts.ondrop(filesary);
+		}
+		return false
+	},
+	genArray:function(filesary){//坑爹的files是对象不是数组，将其转化成数组
+		var files = [];
+		for(var i=0; i<filesary.length; i++){
+			filesary[i].index = ++this.filesCount;
+			files.push(filesary[i]);
 		};
 		return files;
 	},
-	checkfiles:function(){//检查上传的file数组是否合法
-		var files = this.files,
-			filesCount = this.filesCount = files.length,//坑爹啊，这里获得的files不是数组！
-			maxSize = opts.maxfilesize;
+	checkfiles:function(files){//检查上传的file数组是否合法
+		var files = files,
+			wrongnum = 0;
 		if (files === null || typeof files === 'undefined') return this.onerror(errors[0]);
+		var	filesCount = this.files.length + files.length,//坑爹啊，这里获得的files不是数组！
+			maxSize = opts.maxfilesize;
 		if (filesCount < 1 || filesCount > opts.maxfiles) return this.onerror(errors[1]);
-		this.files = this.genArray();
-		this.files = this.files.filter(function(value){//判断是否超大
-			return value.size <= maxSize;
+		files = this.genArray(files);
+		files = files.filter(function(value){//判断是否超大
+			if(value.size <= maxSize) return true;
+			return wrongnum++ && false
 		})
-		if(this.files.length < 1) return this.onerror(errors[2]);
-		this.files = this.files.filter(function(value){//判断是否合法的图片文件
+		if(files.length < 1) return this.onerror(errors[2]);
+		if(wrongnum>0){
+			this.onerror(errors[2], wrongnum);
+			wrongnum = 0;
+		}
+		files = files.filter(function(value){//判断是否合法的图片文件
 			return imagesSupport.some(function(imgVal){
-				return value.type.indexOf(imgVal) !== -1;
-			});
+				if(~value.type.indexOf(imgVal)) return true;
+			}) ? true : wrongnum++ && false;;
 		});
-		if(this.files.length < 1) return this.onerror(errors[3]);
-		return true;
+		if(files.length < 1) return this.onerror(errors[3]);
+		if(wrongnum>0) this.onerror(errors[3], wrongnum);
+		return files;
 	},
 	onchange:function(inputid){
 		var that = this;
 			$('#'+inputid).change(function(){
-				that.files = this.files;
-				if(that.checkfiles()) opts.ondrop(that.files);
+				that.oninput(this.files)
 			})
 	},
-	onerror:function(errmsg){
-		opts.onerror(errmsg);
-		return false;
+	onerror:function(errmsg, num){
+		return opts.onerror(errmsg, num) && false;
+	},
+	remove:function(number){
+		this.files = this.files.filter(function(value){
+			return value.index != number;
+		})
 	},
 	upload:function(){
 		var that = this;
-		that.filesLength = this.files.length;//获得上传文件的数量
+		that.filesLength = that.files.length;//获得上传文件的数量
 		that.filesDone = 0;
 		that.files.forEach(function(filesObj, index){
-			filesObj.index = index
 			opts.beforeEach(filesObj);//执行上传前的回调
 		    try {
 					var reader = new FileReader();				
@@ -148,7 +161,7 @@ DropFile.prototype = {
 	$.fn.dropfile = function(options) {
 		opts = $.extend( {}, default_opts, options );
 		var df = new DropFile();
-		this.bind('drop', function(event){df.ondrop(event);}).bind('dragenter', stop).bind('dragover', stop).bind('dragleave', stop);
+		this.bind('drop', function(event){df.ondrop(event);return event.preventDefault() && false}).bind('dragenter', stop).bind('dragover', stop).bind('dragleave', stop);
 		$(document).bind('drop', stop).bind('dragenter', stop).bind('dragover', stop).bind('dragleave', stop);
 		if(opts.oninputid) df.onchange(opts.oninputid);
 		return df;
