@@ -1,7 +1,7 @@
 var http = require('http'),
 	rrest = require('../'),
+	i=0,
     server = http.createServer(rrest(function (req, res) {
-		res.render('/index.jade', {"t":'hello world'}, function(err, html){
-
+		res.render('/index.jade', ++i, {"t":'hello world'}, function(err, html){			
 		})
 	})).listen(3000);

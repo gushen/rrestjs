@@ -1,13 +1,23 @@
-var path = require('path');
+var path = require('path'),
+	processPath = path.dirname(process.argv[1]);//运行node的目录，这里可以方便替换下面baseDir的__dirname,方便用户自己搭建目录，利用node_modules加载rrestjs
 module.exports = {
 //通用配置
+/*
+* 注意，所有的路径配置的前面请加‘/’而后面不要加'/'！
+*/
 	server:'rrestjs',     
 	poweredBy: 'node.js',
 	baseDir: path.join(__dirname, '/..'), //绝对目录地址，下面的目录配置都是根据这个目录拼接的
+  //baseDir:processPath,//这里是根据启动nodejs的命令目录来设置baseDir
+    autoCreateFolders:false,//如果想要以node_modules加载rrestjs,则此项最好选择true,rrestjs会根据config自动创建静态文件目录和缓存目录等目录
 	favicon:'/favicon.ico',  //favicon存放地址
 	charset: 'utf-8',
 	autoStatic:'skin',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
 	staticFolder:'/app/static/skin',  //自动响应静态文件的根目录，比如  http://rrestjs.com/static/rrest.jpg 将返回 baseDir+'/example/static/rrest.jpg' 
+	staticParse:false,//是否开启静态文件压缩整合功能
+	staticParseName:'parse',//压缩整合功能的名称，例如用户可以'/static/parse/index.body.css|index.user.css|user.face.css'压缩整合正一个css响应给客户端
+	staticParseCacheTime:1000*60*60,//压缩整合缓存时间，1小时
+	staticParseCacheFolder:'/app/static/cache',//缓存整合功能的缓存文件夹
 	uploadFolder:'/app/static/skin/upload', //文件上传的临时目录
 	postLimit:1024*1024,//限制上传的postbody大小，单位byte
 	webtitle : 'rrestjs高性能node.js框架',
@@ -33,7 +43,7 @@ module.exports = {
 	isZlib:true, //是否开启delate和gizp压缩，大并发压缩虽然可以减少传输字节数，但是会影响性能
 	ZlibArray:['text/plain', 'application/javascript', 'text/css', 'application/xml', 'text/html'], //只压缩数组中的content-type响应
 //logger log4js 配置
-	isLog:true, //是否开启日志，过多的记录日志会影响性能，但是能记录系统运行情况
+	isLog:false, //是否开启日志，过多的记录日志会影响性能，但是能记录系统运行情况
 	logLevel:'info',//['trace','debug','info','warn','error', 'fatal'] 日志等级
 	logPath:'/mylogs/console.log', // "/mylogs/console.log" 日志存放目录
 	logMaxSize:1024*1024*10, //单个日志文件大小
@@ -46,16 +56,16 @@ module.exports = {
 	jadeCacheTime:1000*60*15,//模版缓存时间
 	jadeCacheFolder:'/tmp/jade', //jade模版缓存 存放目录
 //mongodb 配置
-	isMongodb:true, //是否开启mongodb支持，注意：如果使用数据库存储session，这里必须开启
+	isMongodb:false, //是否开启mongodb支持，注意：如果使用数据库存储session，这里必须开启
 	MongodbIp:'127.0.0.1', //mongodb地址
 	MongodbPort:27017, //mongodb端口
 	MongodbConnectString:false, //是否使用字符串连接，日入nae的连接方法，这个优先级高于地址+端口
 	MongodbCennectTimeout:1000*30,//连接超时
-	MongodbMaxConnect:100,//连接池连接数
+	MongodbMaxConnect:1,//连接池连接数
 	MongodbDefaultDbName:'rrest',//默认使用的数据库名
 	poolLogger:false,//是否记录连接池的日志，建议关闭
 //自动加载模块 配置
-	AutoRequire:true, //是否开启模块自动加载，加载只有的模块可以使用  rrest.mod.模块名 来进行调用
+	AutoRequire:false, //是否开启模块自动加载，加载只有的模块可以使用  rrest.mod.模块名 来进行调用
 	ModulesFloder:'/modules', //自动加载模块的存放目录,只读一层目录
 	ModulesExcept:[], //自动加载模块目录中例外不加载的模块
 //ip地址访问过滤
