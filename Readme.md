@@ -88,7 +88,7 @@
 
   Response.redirect(url): 跳转到指定的url地址, 少用此功能;
 
-  Response.render(template, [options, callback]): 目前仅支持一种jade模版，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring
+  Response.render(template, [ispage, options, callback]): 目前仅支持一种jade模版，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring
   
   
 ##AutoRequire: 自动加载 /modules 文件夹中的模块, 可以在config配置文件中详细配置开启或者例外
