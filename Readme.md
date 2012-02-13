@@ -1,26 +1,51 @@
 # rrestjs —— HIgh performance node.js ROA  RESTFUL  web framework
 
-  rrestjs是一款基于expressjs代码开发的高性能node.js框架，由于重新编写了框架组织架构，比expressjs整体性能提升大约10%，实用功能也更加丰富，API和代码风格相比expressjs更简单易懂
+  rrestjs是一款基于expressjs代码开发的高性能node.js开发框架，由于重新编写了框架组织架构，比expressjs整体性能提升大约10%，实用功能也更加丰富，API和代码风格相比expressjs更简单易懂。
 
-  如果想运行expamle代码，请将config文件中的config.js修改为加载example_config.js, 注: config中的除了baseDir是绝对路径外，其他路径全部都是相对于baseDir的绝对路径。
+  rrestjs简单工作流程如下： 
+  
+  1、例如用户请求 /user/face/?uid=10086
+
+  2、rrestjs接收请求，然后对req以及res等进行简单封装，然后接由用户处理
+
+  3、用户根据请求路径，找到user.js文件，然后执行其中的face方法，根据请求的method和uid，用户可以自由的响应不同的内容
 
 ##项目演示网址：http://rrestjs.cnodejs.net
 
-##安装地址：npm install rrestjs
+  利用rrestjs框架搭建的一个基于mongodb和nodejs的个人小站，有jade模版输出和留言板的小应用，代码在本例 app 文件夹中。
 
-##框架介绍：http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
+##安装方法：
 
-##性能测试
+  目前没有对windows环境下做任何测试和支持，请使用linux系统
+
+  1、npm install rrestjs
+
+  2、直接从github上打包下载  
+
+##框架介绍：目前是0.2版本，unstable版本
+
+  社区文章： http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
+
+  博客：http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/
+
+  v0.2升级博客: http://snoopyxdy.blog.163.com/blog/static/601174402012113104618863/
+
+##性能测试：
 
   性能测试地址，对比node.js, expressjs和rrestjs: http://snoopyxdy.blog.163.com/blog/static/6011744020120135424340/
 
   rrestjs和expressjs功能对比: http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/
 
-
 ##简单的代码风格：一个hello world的例子
 
 
-      var http = require('http'),
+      module.exports.conf = require('./config/config');
+
+      //加载rrestjs配置文件，这里的 conf 属性 可以是以下任意一种：
+
+      //'config', '_config', 'conf', '_conf', 'rrestjsconfig', 'rrestconfig',  '_rrestjsconfig', '_rrestconfig', 'appconfig', '_appconfig'
+
+      var http = require('http'),    
 
       rrest = require('rrest'),
 
@@ -31,16 +56,75 @@
 	})).listen(3000);
 
 
-  目前是v1.0版本, 未经过严格测试, 目前仅供学习参考
+  目前是v0.2版本, 未经过严格测试, 目前仅供学习参考
+
+
+##开发建议：
+
+  可以利用打包下载的文件目录直接开发，也可以像express那样自己建立搭建文件夹进行开发，唯一需要注意的是 module.exports.conf = require('./config/config'); 加载配置文件语句需要放在 require('rrestjs'); 之前。
+
+  由于抛弃了路由映射表，所以在入口处需要根据用户请求的url来分配到指定控制器中，下面是一个简单的npm安装rrestjs搭建应用入口的代码例子：
+
+
+	module.exports.conf = require('./config/config');//加载配置文件，必须放在rrestjs加载之前，配置文件格式详见 https://github.com/DoubleSpout/rrestjs/blob/master/config/example_config.js
+	
+	var http = require('http'),
+	 
+	    rrest = require('rrestjs'),
+
+	    server = http.createServer(rrest(function (req, res){//这里是主入口，可以根据您的需要自由添加一些东西，而express并没有提供此功能
+
+		try{
+
+			require('./controller/'+req.path[0])[req.path[1]](req, res);//这里是核心部分，执行指定控制器中的方法，将req和res传参进去
+
+		}
+
+		catch(err){
+		
+			_logger.info(err);
+
+			res.statusCode = 404;
+
+			res.render('/e404.jade' ,{errorpath: '/'+req.path.join('/')});
+
+		}
+
+	    })).listen(rrest.config.listenport);
+
+         _rrest = rrest; //全局变量
+
+	 _logger = restlog;//日志方法，例如 restlog.error('错误msg');有error，info，等多种等级，详见下面api
+
+	 _pool = rrest.mongo;//mongodb连接池的方法，例如：rrest.mongo(function(err, db, release){ dosomething... 然后 将连接交还连接池执行 release() }, [dbname]); 详见下面api
+
 
 ##config
  
   可以根据config.js中加载不同的config文件来达到生产环境一套配置，开发环境一套配置，也可以任意在config配置文件增加配置项, 用来扩充一些常量.获取方法: require('rrestjs').config
 
+  config详细说明地址：https://github.com/DoubleSpout/rrestjs/blob/master/config/example_config.js
+
+
+##baseDir
+
+  rrestjs素有的配置目录都是相对于baseDir的相对目录，baseDir的设置通常分为3种：注意除 baseDir 其他路径的配置都需要加上前缀'/'
+  
+  1、baseDir: path.join(__dirname, '/..') //根据config文件的相对目录取绝对地址
+
+  2、baseDir: path.dirname(process.argv[1]) //根据node启动命令取相对目录地址
+
+  3、baseDir： '/usr/local/nodejs/rrestApp' //直接设定绝对目录
+
+##如何正确运行example
+
+  example中的例子均在本人机器上测试通过，linux 2.6.8 64bit / node.js v0.6.6 / mongodb v2.0，对于windows下并没有测试过，请见谅。 
+
+  并且由于部分示例需要调整 /config/example_config.js 文件夹中的内容或者依赖mongodb，所以想要正常运行部分示例需要先安装 mongodb v2.0 及以上，然后可能需要手动去修改config配置内容来运行它
 
 ##API
   
-  api属性和方法都为小写, 加上"()"的为方法，没有的是属性。
+  api属性和方法都为小写, 加上"()"的为方法，没有的是属性，还有一些特有功能的使用帮助和示例
 
 ##Request: request对象，是IncomingMessage的一个实例;
   
@@ -64,8 +148,6 @@
  
   Request.delsession():摧毁session方法, 摧毁当前的sessionid;
 
-
-
 ##Response: response对象，是ServerResponse的一个实例
    
   Response.cache(type, maxAge): 设置请求缓存头，让浏览器对此uri请求缓存,type: public, private等, maxAge: 缓存的时间,单位毫秒; 
@@ -88,33 +170,50 @@
 
   Response.redirect(url): 跳转到指定的url地址, 少用此功能;
 
-  Response.render(template, [ispage, options, callback]): 目前仅支持一种jade模版，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring
-  
+  Response.render(template, [pageNumber, options, callback]): 目前仅支持一种jade模版，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug
   
 ##AutoRequire: 自动加载 /modules 文件夹中的模块, 可以在config配置文件中详细配置开启或者例外
 
   require('rrestjs').mod['文件名']: 文件名会自动将后缀.js去掉, 例如在modules/as.js模块自动加载进来, 使用方法:  require('rrestjs').mod['as'];
-
   
 ##MongdbConnect: Mongodb数据库连接,可在config配置文件中详细配置, 比如: 连接数, 连接端口等等
 
   require('rrestjs').mongo(callback, [dbname]): callback三个参数:err, db, release方法, err表示错误, db是Mongodb数据库实例, release()方法执行表示归还连接到连接池, 操作完数据库一定要执行release(); 出错err会自动归还
 
   require('rrestjs').mpool(callback, [dbname]): genricpool方法, acquire.mpool(callback, dbname)表示去连接池中获取一个连接, callback接收2个参数err, db;无论err与否, 都需要mpool.release(db); 归还连接到连接池。建议使用上面的mongo方法。
-
   
 ##restlog: 全局变量, 日志对象详细配置, 例如是否开启, 如何分级, 如何切分可在config文件中详细配置
 
-  restlog.info: 等级info日志, 测试用, 生产环境建议关闭
+  restlog.info(errmsg): 等级info日志, 测试用, 生产环境建议开启error等级
 
-  restlog.warn: 等级warn, 测试用, 生产环境建议关闭
+  restlog.warn(errmsg): 等级warn, 测试用, 生产环境建议开启error等级
 
-  restlog.error: 等级error, 生产环境用
-
+  restlog.error(errmsg): 等级error, 生产环境用
 
 ##AutoStatic
 
   AutoStatic:自动响应静态文件, 需要去config配置, 例如: 将staticFolder设置为:'/app/static/skin', 将autoStatic设置为:'skin', 则用户只需要将图片src设置为 '/skin/face/spout.png' 即可自动响应此图片文件
+
+  staticParse:css和js文件压缩整合自动响应，例如：'/static/?parse=/index.body.css|/index.user.css|/user.face.css' 表示压缩整合一个css响应给客户端，js同理
+
+##AutoCreateFolders
+
+  autoCreateFolders:自动创建文件目录，会根据config配置文件的临时目录地址自动创建目录
+
+##IPtables
+
+  IP过滤访问，可以根据配置进行白名单或者黑名单的切换IP过滤，路径过滤只能在白名单中使用。
+
+
+  	IPfirewall:false, //是否开启IP过滤，开启会影响性能。
+
+	BlackList:false,//如果是true，表示下面这些是黑名单，如果是false，表示下面这些是白名单，路径设置优先级大于IP
+
+	ExceptIP:/^10.1.49.224$/, //正则表达式，匹配成功表示此IP可以正常访问,白名单
+
+	ExceptPath:['/user'],//例外的路径，如果用户访问这个路径，无论在不在ip过滤列表中，都可以正常使用，白名单才能使用
+
+	NotAllow:'No permission!', //禁止访问响应给客户端的信息
 
 
 ##ClusterPlus
@@ -171,7 +270,6 @@
 
 	});
 
-
   
 ##AsyncProxy
 
@@ -182,17 +280,23 @@
      
       var as = new require('rrestjs').AsyncProxy(), //其他代码相同，如果这里 new AsyncProxy(true), 则表示链式调用, 异步处理将依次执行, as.prev对象将能得到上一次异步处理的data数据
 
-      asarray=[], 
+      asarray=[], //存放异步的方法
 
-      asfunc = function(data){return function(order){
+      dataall=[],//存放异步回来的数据
+
+      asfunc = function(rec){
       
-              异步处理函数(data); //异步处理data
+              异步处理函数(function(){//这个是异步函数的回调函数
+		
+		处理data;//异步处理data
 
-	      as.rec(order, data);// 将order告诉AsyncProxy表示已经此异步处理已经返回, 同时将data放入总dataall数组中, 这里还将返回一个state对象, state: {rec: 已经返回异步数, total: 总需要返回异步处理数目}
+		var state =  rec();// 将order告诉AsyncProxy表示已经此异步处理已经返回,  这里还将返回一个state对象, state: {rec: 已经返回异步数, total: 总需要返回异步处理数目}
+
+	      }); 
       
-      }},
+      },
 
-      asall = function(dataall){ 
+      asall = function(){ 
       
       汇总处理(dataall);
       
@@ -210,5 +314,5 @@
   
       asarray.push(asall); //将最终汇总函数存入数组
 
-      as.ap.apply(null, asarray);//as.ap方法是入口，参数规则  异步函数1, 异步函数2 ... 回调函数, 这里利用apply调用参数不定长的as.ap方法，此方法将返回一个inter型的total, 表示总共需要返回total个异步处理。
+      var total = as.ap.apply(as, asarray);//as.ap方法是入口，参数规则  异步函数1, 异步函数2 ... 回调函数, 这里利用apply调用参数不定长的as.ap方法，此方法将返回一个inter型的total, 表示总共需要返回total个异步处理。
 
