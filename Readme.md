@@ -18,7 +18,7 @@
 
   目前没有对windows环境下做任何测试和支持，请使用linux系统
 
-  1、npm install rrestjs
+  1、npm install rrestjs （如果node_modules不能正常打包或者有任何错误，请手动下载本例中的node_modules文件夹）
 
   2、直接从github上打包下载  
 
