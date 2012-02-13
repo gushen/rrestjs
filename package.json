@@ -2,7 +2,7 @@
   "author": "doublespout <snoopyxdy@163.com> (http://snoopyxdy.blog.163.com)",
   "name": "rrestjs",
   "description": "HIgh performance node.js ROA & RESTFUL web framework.",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "homepage": "https://github.com/DoubleSpout/rrestjs",
   "repository": {
     "type": "git",

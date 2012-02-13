@@ -19,6 +19,7 @@ module.exports = {
 	staticParseCacheTime:1000*60*60,//压缩整合缓存时间，1小时
 	staticParseCacheFolder:'/app/static/cache',//缓存整合功能的缓存文件夹
 	uploadFolder:'/app/static/skin/upload', //文件上传的临时目录
+	staticParseMaxNumber:10,//整合压缩css或js文件的最大上限，建议不要超过15
 	postLimit:1024*1024,//限制上传的postbody大小，单位byte
 	webtitle : 'rrestjs高性能node.js框架',
 	listenport:3000,
