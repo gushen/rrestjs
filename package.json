@@ -7,15 +7,15 @@
   "homepage": "https://github.com/DoubleSpout/rrestjs",
   "repository": {
     "type": "git",
-    "url": "git@github.com:DoubleSpout/rrestjs.git",
+    "url": "git@github.com:DoubleSpout/rrestjs.git"
   },
   "repository":{
         "type": "git",
-         "url": "https://DoubleSpout@github.com/DoubleSpout/rrestjs.git",
+         "url": "https://DoubleSpout@github.com/DoubleSpout/rrestjs.git"
     },
   "main": "index.js",
   "engines": {
-    "node": "0.6.6",
+    "node": "~0.6.6"
   },
   "dependencies": {
         "formidable": "1.0.8",
@@ -25,7 +25,7 @@
 	"mime": "1.2.4",
 	"mongodb": "0.9.7-3-5",
 	"socket.io": "0.8.7",
-	"uglify-js": "1.2.5",
+	"uglify-js": "1.2.5"
     },
-  "devDependencies":{},
+  "devDependencies":{}
 }
