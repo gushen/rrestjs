@@ -2,16 +2,30 @@
   "author": "doublespout <snoopyxdy@163.com> (http://snoopyxdy.blog.163.com)",
   "name": "rrestjs",
   "description": "HIgh performance node.js ROA & RESTFUL web framework.",
-  "version": "0.2.4",
+  "keywords": ["rrestjs", "restful", "webframework", "nodejs framework", "express", "expressjs", "ROA", "high performance"]
+  "version": "0.2.5",
   "homepage": "https://github.com/DoubleSpout/rrestjs",
   "repository": {
     "type": "git",
     "url": "git@github.com:DoubleSpout/rrestjs.git"
   },
+  "repository":{
+        "type": "git"
+      , "url": "https://DoubleSpout@github.com/DoubleSpout/rrestjs.git"
+    },
   "main": "index.js",
   "engines": {
-    "node": "~0.6.6"
+    "node": "0.6.6"
   },
-  "dependencies": {},
+  "dependencies": {
+        "formidable": "1.0.8",
+        "generic-pool": "1.0.6",
+        "jade": "0.20.0",
+	"log4js": "0.3.9",
+	"mime": "1.2.4",
+	"mongodb": "0.9.7-3-5",
+	"socket.io": "0.8.7",
+	"uglify-js": "1.2.5",
+    },
   "devDependencies": {}
 }
