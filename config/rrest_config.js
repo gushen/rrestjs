@@ -15,7 +15,7 @@ module.exports = {
 	autoStatic:'skin',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
 	staticFolder:'/app/static/skin',  //自动响应静态文件的根目录，比如  http://rrestjs.com/static/rrest.jpg 将返回 baseDir+'/example/static/rrest.jpg' 
 	staticParse:false,//是否开启静态文件压缩整合功能
-	staticParseName:'parse',//压缩整合功能的名称，例如用户可以'/static/parse/index.body.css|index.user.css|user.face.css'压缩整合正一个css响应给客户端
+    staticParseName:'parse',//压缩整合功能的名称，例如用户可以'/static/?parse=/index.body.css|/index.user.css|/user.face.css'压缩整合正一个css响应给客户端
 	staticParseCacheTime:1000*60*60,//压缩整合缓存时间，1小时
 	staticParseCacheFolder:'/app/static/cache',//缓存整合功能的缓存文件夹
 	uploadFolder:'/app/static/skin/upload', //文件上传的临时目录
