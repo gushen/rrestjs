@@ -18,11 +18,11 @@
 
   目前没有对windows环境下做任何测试和支持，请使用linux系统
 
-  1、npm install rrestjs （如果node_modules不能正常打包或者有任何错误，请手动下载本例中的node_modules文件夹）
+  1、npm install rrestjs,如果node_modules不能正常下载执行 npm update rrestjs（如果node_modules还是不能正常打包或者有任何错误，请手动下载本例中的node_modules文件夹）
 
   2、直接从github上打包下载  
 
-##框架介绍：目前是0.2版本，unstable版本
+##框架介绍：目前是0.3版本，unstable版本
 
   社区文章： http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
 
