@@ -30,7 +30,7 @@ module.exports = {
 	staticGetOnly : true, //静态是否只能通过get获取
 	staticLv2MaxAge : 1000*60*60, //静态文件2级缓存更新周期，建议设置为1小时
 //session配置
-	isSession:false, //是否开启session，开启会影响性能。
+	isSession:true, //是否开启session，开启会影响性能。
 	syncSession:true,//当多进程时是否开启session同步，开启会影响性能。
 	sessionName:'rrSid', //保存session id 的cookie 的name
 	sessionExpire:false, //false表示会话session，否则填入1000*60，表示session有效1分钟
@@ -39,7 +39,7 @@ module.exports = {
 //session内存存储
 	sessionDbStore:false,//是否使用mongodb数据库存储session，如果设置为true，则不需要同步session
 //deflate和gzip配置
-	isZlib:false, //是否开启delate和gizp压缩，大并发压缩虽然可以减少传输字节数，但是会影响性能
+	isZlib:true, //是否开启delate和gizp压缩，大并发压缩虽然可以减少传输字节数，但是会影响性能
 	ZlibArray:['text/plain', 'application/javascript', 'text/css', 'application/xml', 'text/html'], //只压缩数组中的content-type响应
 //logger log4js 配置
 	isLog:false, //是否开启日志，过多的记录日志会影响性能，但是能记录系统运行情况
