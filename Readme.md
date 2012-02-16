@@ -105,9 +105,9 @@
 
 ##config
  
-  config是rrestjs最重要的文件，它是然让rrestjs正常启动必不可少的文件。您只需要在您第一次 require('rrestjs') 前加上代码： module.exports.conf = require(您config文件存放地址) 即可，当然您也可以任意在您的config文件中加入配置常量，读取方法：require('rrestjs').config；具体config格式请参阅下面连接。
+  config是rrestjs最重要的文件，它是让rrestjs正常启动必不可少的文件。您只需要在您第一次 require('rrestjs') 前加上代码： module.exports.conf = require(您config文件存放地址)  即可，当然您也可以任意在您的config文件中加入配置常量，具体config格式请参阅下面连接。
   
-  require('rrestjs').config：获取config文件方法: require('rrestjs').config
+  require('rrestjs').config：获取config文件内容
 
   config配置详细说明地址：https://github.com/DoubleSpout/rrestjs/blob/master/config/example_config.js
 
