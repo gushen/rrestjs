@@ -114,7 +114,7 @@
 
 ##baseDir
 
-  rrestjs素有的配置目录都是相对于baseDir的相对目录，baseDir的设置通常分为3种：注意除 baseDir 其他路径的配置都需要加上前缀'/'
+  rrestjs所有的配置目录都是相对于baseDir的相对目录，baseDir的设置通常分为3种：注意除 baseDir 其他路径的配置都需要加上前缀'/'
   
   1、baseDir: path.join(__dirname, '/..') //根据config文件的相对目录取绝对地址
 
