@@ -4,4 +4,4 @@ var http = require('http'),
 		res.download(__dirname+'/static/evo.jpg', function(err){
 			if(!err) console.log('success！！！');
 		})
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);

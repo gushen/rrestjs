@@ -11,7 +11,7 @@ var http = require('http'),
 						return;
 					}
 				 res.send(++session.count);
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);
 	
 	setInterval(function(){
 		console.log(process.pid + ' : '+JSON.stringify(_restSession));

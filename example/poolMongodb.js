@@ -11,7 +11,7 @@ var http = require('http'),
 				});
 			});
 		});
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);
 
 var mongo_err = function(err, release){
 	console.log(err);

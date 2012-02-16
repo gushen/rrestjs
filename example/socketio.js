@@ -3,7 +3,7 @@ var http = require('http'),
 	io = require('socket.io'),
     server = http.createServer(rrest(function (req, res){
 		res.send(html);		
-	})).listen(3000),
+	})).listen(rrest.config.listenPort),
 	socketio = io.listen(server);
 
 socketio.sockets.on('connection', function (socket) {

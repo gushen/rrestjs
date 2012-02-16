@@ -9,4 +9,4 @@ var http = require('http'),
 
 		//res.send('<body>API</body>');
 		res.sendjson({name:'spout', age:27},200, false, false);		  
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);

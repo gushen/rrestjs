@@ -4,7 +4,7 @@ var http = require('http'),
 			var cb = req.getparam.callback;
 			if(!cb) res.send(htmlstr);
 			else res.sendjsonp({name:'snoopy', age:'27'});
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);
 var htmlstr = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'+
 			  '<html xmlns="http://www.w3.org/1999/xhtml">'+
 			  '<head>'+

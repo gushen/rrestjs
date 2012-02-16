@@ -1,7 +1,6 @@
 var http = require('http'),
-	rrest = require('../'),
+	rrest = require('../'), 
 	i=0,
     server = http.createServer(rrest(function (req, res) {
-		res.render('/index.jade', ++i, {"t":'hello world'}, function(err, html){			
-		})
-	})).listen(3000);
+		res.render('/index.jade', ++i, {"t":'hello world'}, function(err, html){});
+	})).listen(rrest.config.listenPort);

@@ -32,7 +32,7 @@ var http = require('http'),
 				
 			}
 
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);
 var formstr = '<form enctype="multipart/form-data" action="/user/name?method=post" method="post">'+
 			  '<input type="text" name="input_name" value="spout" /><br/><br/>'+
 			  '<input type="password" name="password" value="password" /><br/><br/>'+

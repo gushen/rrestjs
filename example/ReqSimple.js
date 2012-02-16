@@ -11,4 +11,4 @@ var http = require('http'),
 		res.write('req.cookie:'+JSON.stringify(req.cookie)+'<br />');
 		res.write('<script>document.cookie = "name = spout"</script>');
 		res.end('</body>');
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);

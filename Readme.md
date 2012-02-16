@@ -22,13 +22,15 @@
 
   2、直接从github上打包下载  
 
-##框架介绍：目前是0.3版本，unstable版本
+##框架介绍：目前是0.4版本，unstable版本
 
   社区文章： http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
 
   博客：http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/
 
   v0.2升级博客: http://snoopyxdy.blog.163.com/blog/static/601174402012113104618863/
+
+  v0.4升级博客：http://snoopyxdy.blog.163.com/blog/static/60117440201211643738703/
 
 ##性能测试：
 
@@ -53,10 +55,10 @@
 
 		res.send('hello world');
 
-	})).listen(3000);
+	})).listen(rrest.config.listenPort);
 
 
-  目前是v0.2版本, 未经过严格测试, 目前仅供学习参考
+  目前是v0.4版本, 未经过严格测试, 目前仅供学习参考
 
 
 ##开发建议：
@@ -92,6 +94,8 @@
 
 	    })).listen(rrest.config.listenport);
 
+	 _config = rrest.config;//配置文件的内容，如果要修改或者读取配置文件的内容，请用 rrest.config;
+
          _rrest = rrest; //全局变量
 
 	 _logger = restlog;//日志方法，例如 restlog.error('错误msg');有error，info，等多种等级，详见下面api
@@ -101,9 +105,11 @@
 
 ##config
  
-  可以根据config.js中加载不同的config文件来达到生产环境一套配置，开发环境一套配置，也可以任意在config配置文件增加配置项, 用来扩充一些常量.获取方法: require('rrestjs').config
+  config是rrestjs最重要的文件，它是然让rrestjs正常启动必不可少的文件。您只需要在您第一次 require('rrestjs') 前加上代码： module.exports.conf = require(您config文件存放地址) 即可，当然您也可以任意在您的config文件中加入配置常量，读取方法：require('rrestjs').config；具体config格式请参阅下面连接。
+  
+  require('rrestjs').config：获取config文件方法: require('rrestjs').config
 
-  config详细说明地址：https://github.com/DoubleSpout/rrestjs/blob/master/config/example_config.js
+  config配置详细说明地址：https://github.com/DoubleSpout/rrestjs/blob/master/config/example_config.js
 
 
 ##baseDir
@@ -217,59 +223,66 @@
 
 
 ##ClusterPlus
+ 
+  ClusterPlus是rrestjs内置的一个多进程多任务管理模块, 主要为rrestjs提供多进程多任务, 主进程自动唤醒意外挂掉的子进程, 同步内存session以及开发模式下的保存自动重启，让您想开发PHP那样方便的进行node.js开发.
 
-  ClusterPlus是rrestjs内置的一个多进程多任务管理模块, 主要为rrestjs提供多进程多任务, 主进程自动唤醒意外挂掉的子进程, 同步内存session以及开发模式下的自动重启.
+  require('rrestjs').listen(server, [port||portarray])：让rrestjs来监听端口，如果您想让多个node.js进程监听多个不同端口，只需将server实例和[3000, 3001, 3002 ..]这样的端口数组传入此方法，如果不传参数，则默认第二个参数是config文件的 listenPort 属性。
 
-  可以在配置文件config中详细配置ClusterPlus
-
-  require('rrest').ClusterPlus(options): 执行ClusterPlus方法，用来进行多进程多任务处理。
+  require('rrestjs').id：一个从0开始的整数，当开启Cluster后，每一个node.js子进程会具有这个属性。
   
-  options设置为:
+  可以在配置文件config中详细配置ClusterPlus的各项功能：
 
 
-    logger:Boolean || function(str){},//布尔值，用来表示是否打开日志,或者是function，用来记录日志的方法,参数是str输出字符串, 默认关闭，建议关闭
+  	isCluster:true, //是否开启多进程集群
 
-    num:Integer, //整数，启动几个子进程, 可在config中配置
+	isClusterAdmin:true,//进程监听管理功能是否开启
+
+	CLusterLog:false,//是否打开cluster自带的控制台信息，生产环境建议关闭
+
+	adminListenPort:20910,//管理员监听端口号，主进程会自动监听此端口号
+
+	adminAuthorIp:/^10.1.49.223$/,//允许访问管理的IP地址
+
+	ClusterNum:4, //开启的进程数
+
+	ClusterReload:'/example',//当 ClusterNum 进程数为1时，自动进入开发模式，可以监听此文件夹下的改动，包括子文件夹，开发时不用重复 ctrl+c 和 上键+enter		
+
   
-    CreateCallback:function(err, num){}, //函数，当创建子进程完成后执行，返回的参数是num整形表示第几个child，和进程ID
+  以下是开启 config.ClusterNum(假设4个) 个进程监听4个端口的代码:
 
-    DeadCallback:function(err, num){},//函数，当子进程死掉时执行，返回的参数是num整形表示第几个child，和进程ID
-
-    RestartCallback:function(err, num){},//函数，当子进程重启时执行，返回的参数是num整形表示第几个child，和进程ID
-
-    reload: 布尔值或者目录, //当为false时关闭自动重启功能, 否则监听指定目录, 可在config中配置
-
-    *注意：reload只有在启动一个子进程的情况下才工作良好，并且reload会遍历监听设定目录下的所有目录，请妥善设定监听目录，默认config配置目录
-
-    *childobj = {num:num, pid:pid}//执行ClusterPlus()返回的子进程运行情况对象
-
-
-  以下是开启4个进程监听4个端口的代码, 可以将config中ClusterReload设置为一个指定目录, 一旦此目录文件发生改变将重启自动node.js进程(注: 开启此功能必须将子进程数设置为 1);
-
+	
+	module.exports.conf = require('./config/config');//说明同上
 
         var http = require('http'),
 
-	rrest = require('../'),
+	    rrest = require('rrestjs'),
 
-	port = [3000, 3001, 3002, 3003],
+	    port = [3000, 3001, 3002, 3003],
 
-	cp = rrest.ClusterPlus({
+	    server = http.createServer(rrest(function (req, res){
 
-		CreateCallback:function(err, data){
+			res.send('process '+rrest.id+' is listen at '+port[rrest.id]+' : hello world everyone!');
 
-			if(err) return console.log(err);//writen server listen function here
+	    }));
 
-			var	server = http.createServer(rrest(function (req, res){
+	rrest.listen(server, port);//这里如果不传port参数，则自动去读config.listenPort;
 
-					res.send('process '+data.num+' is listen at '+port[data.num]+' : hello world everyone!');
+ 
+  以下是开启 config.ClusterNum 个进程监听1个端口的代码:(当 ClusterNum 为 1时，进入开发模式，根据配置的文件夹将自动重启node.js进程像PHP那样开发node.js应用)
 
-				})).listen(port[data.num]);	
-				
-		},
-		num:4,//also set at config.js, set one to open autoreload;
+	
+	module.exports.conf = require('./config/config');//说明同上
+	
+	var http = require('http'),
 
-	});
+	    rrest = require('rrestjs'),
 
+	    server = http.createServer(rrest(function (req, res){
+
+		res.send('process '+rrest.id+' is listen at '+port[rrest.id]+' : hello world everyone!');
+
+	    })).listen(rrest.config.listenPort);//读取配置文件的监听端口号，必须这么写，只需修改配置文件即可轻松部署
+  
   
 ##AsyncProxy
 
@@ -315,4 +328,3 @@
       asarray.push(asall); //将最终汇总函数存入数组
 
       var total = as.ap.apply(as, asarray);//as.ap方法是入口，参数规则  异步函数1, 异步函数2 ... 回调函数, 这里利用apply调用参数不定长的as.ap方法，此方法将返回一个inter型的total, 表示总共需要返回total个异步处理。
-
