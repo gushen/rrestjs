@@ -23,6 +23,8 @@
   2、直接从github上打包下载  
 
 ##框架介绍：目前是0.4版本，unstable版本
+ 
+  新手入门：http://snoopyxdy.blog.163.com/blog/static/60117440201211743031517/
 
   社区文章： http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
 
@@ -74,7 +76,7 @@
 	 
 	    rrest = require('rrestjs'),
 
-	    server = http.createServer(rrest(function (req, res){//这里是主入口，可以根据您的需要自由添加一些东西，而express并没有提供此功能
+	    server = http.createServer(rrest(function (req, res){//这里是主入口，可以根据您的需要自由添加一些东西，而express并没有对用户开放主入口
 
 		try{
 
@@ -84,7 +86,7 @@
 
 		catch(err){
 		
-			_logger.info(err);
+			restlog.info(err);//日志方法，例如 restlog.error('错误msg');有error，info，等多种等级，详见下面api
 
 			res.statusCode = 404;
 
@@ -92,15 +94,11 @@
 
 		}
 
-	    })).listen(rrest.config.listenport);
+	    })).listen(rrest.config.listenport);//监听配置文件的设置的端口，如果要修改或者读取配置文件的内容，请用 rrest.config;
 
-	 _config = rrest.config;//配置文件的内容，如果要修改或者读取配置文件的内容，请用 rrest.config;
+          rrest = rrest; //升级rrest为全局变量
 
-         _rrest = rrest; //全局变量
-
-	 _logger = restlog;//日志方法，例如 restlog.error('错误msg');有error，info，等多种等级，详见下面api
-
-	 _pool = rrest.mongo;//mongodb连接池的方法，例如：rrest.mongo(function(err, db, release){ dosomething... 然后 将连接交还连接池执行 release() }, [dbname]); 详见下面api
+	  pool = rrest.mongo;//mongodb连接池的方法，例如：rrest.mongo(function(err, db, release){ dosomething... 然后 将连接交还连接池执行 release() }, [dbname]); 详见下面api
 
 
 ##config
