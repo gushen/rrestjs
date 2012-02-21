@@ -9,9 +9,11 @@ var http = require('http'),
 					res.write('req.path:'+req.path+'<br />');
 					res.write('req.ip:'+req.ip+'<br />');
 					res.write('req.referer or req.referrer:'+req.referer+'<br />');
-					res.write('req.UserAgent:'+req.useragent+'<br />');
-					res.write('req.GetParam:'+JSON.stringify(req.getparam)+'<br />');
-					res.write('req.PostParam:'+JSON.stringify(req.postparam)+'<br />');
+					res.write('req.Useragent:'+req.useragent+'<br />');
+					res.write('req.getParam:'+JSON.stringify(req.getparam)+'<br />');
+					res.write('req.deleteParam:'+JSON.stringify(req.deleteparam)+'<br />');
+					res.write('req.postParam:'+JSON.stringify(req.postparam)+'<br />');
+					res.write('req.putParam:'+JSON.stringify(req.putparam)+'<br />');
 					res.write('req.cookie:'+JSON.stringify(req.cookie)+'<br />');
 					res.write('<br/><br/><b>we got the multiform data down list:</b><br/><br/>')
 					res.write(util.inspect(req.file));
@@ -24,9 +26,11 @@ var http = require('http'),
 					res.write('req.path:'+req.path+'<br />');
 					res.write('req.ip:'+req.ip+'<br />');
 					res.write('req.referer or req.referrer:'+req.referer+'<br />');
-					res.write('req.UserAgent:'+req.useragent+'<br />');
-					res.write('req.GetParam:'+JSON.stringify(req.getparam)+'<br />');
-					res.write('req.PostParam:'+JSON.stringify(req.postparam)+'<br />');
+					res.write('req.useragent:'+req.useragent+'<br />');
+					res.write('req.getParam:'+JSON.stringify(req.getparam)+'<br />');
+					res.write('req.deleteParam:'+JSON.stringify(req.deleteParam)+'<br />');
+					res.write('req.postParam:'+JSON.stringify(req.postparam)+'<br />');
+					res.write('req.putParam:'+JSON.stringify(req.putparam)+'<br />');
 					res.write('req.cookie:'+JSON.stringify(req.cookie)+'<br />');
 					res.end('</body>');
 				

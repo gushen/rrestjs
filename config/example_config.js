@@ -13,14 +13,14 @@ module.exports = {
     autoCreateFolders:false,//如果想要以node_modules加载rrestjs,则此项最好选择true,rrestjs会根据config自动创建静态文件目录和缓存目录等目录
 	favicon:'/favicon.ico',  //favicon存放地址
 	charset: 'utf-8',
-	autoStatic:'static',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
+	autoStatic:'/static',  //自动响应静态文件的uri，比如 http://rrestjs.com/static/rrest.jpg 将会自动响应给客户端，为了加速这里只能设置一级目录
 	staticFolder:'/example/static',  //自动响应静态文件的根目录，比如  http://rrestjs.com/static/rrest.jpg 将返回 baseDir+'/example/static/rrest.jpg' 
 	staticParse:true,//是否开启静态文件压缩整合功能
-    staticParseName:'parse',//压缩整合功能的名称，例如用户可以'/static/?parse=/index.body.css|/index.user.css|/user.face.css'压缩整合正一个css响应给客户端
+    staticParseName:'parse',//压缩整合功能的名称，例如用户可以'/static/?parse=/index.body.css|/index.user.css|/user.face.css'压缩整合成一个css响应给客户端
 	staticParseCacheTime:1000*60*60,//压缩整合缓存时间，1小时
-	staticParseCacheFolder:'/example/static/cache',//缓存整合功能的缓存文件夹
+	staticParseCacheFolder:'/tmp/static',//缓存整合功能的缓存文件夹
 	staticParseMaxNumber:10,//整合压缩css或js文件的最大上限，建议不要超过15
-	uploadFolder:'/tmp', //文件上传的临时目录
+	uploadFolder:'/tmp/upload', //文件上传的临时目录
 	postLimit:1024*1024*100,//限制上传的postbody大小，单位byte
 //cluster配置
 	isCluster:true, //是否开启多进程集群
@@ -53,12 +53,11 @@ module.exports = {
 	logMaxSize:1024*1024*10, //单个日志文件大小
 	logFileNum:10, //当单个日志文件大小达标时，自动切分，这里设置最多切分多少个日志文件
 //Template
-	tempSet:'jade', //使用哪种页面模版
-	tempFolder : '/example/static', //默认读取模版的根目录
-//jade 配置
-	jadeHtmlCache:false, //是否开启jade模版的html缓存，在输出模版需要大量I/O操作，且实时性要求不高时可以使用
-	jadeCacheTime:1000*60*60,//模版缓存时间
-	jadeCacheFolder:'/tmp/jade/', //jade模版缓存 存放目录
+	tempSet:'jade', //使用哪种页面模版：jade或者ejs
+	tempFolder :'/example/static', //默认读取模版的根目录
+	tempHtmlCache:true, //是否开启模版的html缓存，当输出模版需要大量数据库或缓存I/O操作，且实时性要求不高时可以使用
+	tempCacheTime:1000*60*60,//模版缓存时间
+	tempCacheFolder:'/tmp/template', //模版缓存 存放目录
 //mongodb 配置
 	isMongodb:false, //是否开启mongodb支持，注意：如果使用数据库存储session，这里必须开启
 	MongodbIp:'127.0.0.1', //mongodb地址
@@ -74,8 +73,8 @@ module.exports = {
 	ModulesExcept:['captcha'], //自动加载模块目录中例外不加载的模块
 //ip地址访问过滤
 	IPfirewall:false, //是否开启IP过滤，开启会影响性能。
-	BlackList:false,//如果是true，表示下面这些是黑名单，如果是false，表示下面这些是白名单，路径设置优先级大于IP
-	ExceptIP:/^10.1.49.224$/, //正则表达式，匹配成功表示此IP可以正常访问,白名单
+	BlackList:true,//如果是true，表示下面这些是黑名单，如果是false，表示下面这些是白名单，路径设置优先级大于IP
+	ExceptIP:/^10.1.49.223$/, //正则表达式，匹配成功表示此IP可以正常访问,白名单
 	ExceptPath:['/user'],//例外的路径，如果用户访问这个路径，无论在不在ip过滤列表中，都可以正常使用，白名单才能使用
 	NotAllow:'No permission!', //禁止访问响应给客户端的信息
 }

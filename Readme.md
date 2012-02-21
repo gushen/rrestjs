@@ -14,6 +14,10 @@
 
   利用rrestjs框架搭建的一个基于mongodb和nodejs的个人小站，有jade模版输出和留言板的小应用，代码在本例 app 文件夹中。
 
+##新手入门教程
+ 
+  手把手教程： http://snoopyxdy.blog.163.com/blog/static/60117440201211743031517/
+
 ##安装方法：
 
   目前没有对windows环境下做任何测试和支持，请使用linux系统
@@ -24,15 +28,15 @@
 
 ##框架介绍：目前是0.4版本，unstable版本
  
-  新手入门：http://snoopyxdy.blog.163.com/blog/static/60117440201211743031517/
-
   社区文章： http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
 
-  博客：http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/
+  博客： http://snoopyxdy.blog.163.com/blog/static/60117440201201344425304/
 
   v0.2升级博客: http://snoopyxdy.blog.163.com/blog/static/601174402012113104618863/
 
-  v0.4升级博客：http://snoopyxdy.blog.163.com/blog/static/60117440201211643738703/
+  v0.4升级博客： http://snoopyxdy.blog.163.com/blog/static/60117440201211643738703/
+  
+  v0.5升级博客(新增支持ejs模版)：http://snoopyxdy.blog.163.com/blog/static/6011744020121214533543/
 
 ##性能测试：
 
@@ -142,7 +146,11 @@
   
   Request.getparam: 客户端请求get参数的对象, 比如客户端通过get请求发送了一个name=spout, 获取方法为: Request.getparam.name; //spout
 
+  Request.deleteparam: 客户端请求get参数的对象, 比如客户端通过get请求发送了一个name=spout, 获取方法为: Request.getparam.name; //spout
+  
   Request.postparam: 客户端请求的post参数对象,获取方法同上，如果是上传文件的，这里不能获取;
+  
+  Request.putparam: 客户端请求的put参数对象,获取方法同上，如果是上传文件的，这里不能获取;
 
   Request.file: 客户端上传的文件对象, 包括size, name, type, path等属性，比如客户端上传了一个头像文本框name值为face, 获取方法为: Request.file.face; //{size:1024, name:'face.gif', path:'/tmp/xxxxxx', type:'image/gif', ...}
 
@@ -174,7 +182,7 @@
 
   Response.redirect(url): 跳转到指定的url地址, 少用此功能;
 
-  Response.render(template, [pageNumber, options, callback]): 目前仅支持一种jade模版，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug
+  Response.render(template, [pageNumber, options, callback]):  目前仅支持jade和ejs模版，ejs和jade输出API相同，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug
   
 ##AutoRequire: 自动加载 /modules 文件夹中的模块, 可以在config配置文件中详细配置开启或者例外
 
