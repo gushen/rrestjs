@@ -38,6 +38,7 @@
   
   v0.5升级博客(新增支持ejs模版)：http://snoopyxdy.blog.163.com/blog/static/6011744020121214533543/
 
+  v0.6升级博客(新增支持less)：http://snoopyxdy.blog.163.com/blog/static/60117440201221514687/	
 ##性能测试：
 
   性能测试地址，对比node.js, expressjs和rrestjs: http://snoopyxdy.blog.163.com/blog/static/6011744020120135424340/

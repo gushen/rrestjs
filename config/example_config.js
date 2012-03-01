@@ -34,6 +34,7 @@ module.exports = {
 	statciMaxAge : 86400000*7, //静态文件的缓存周期，建议设置为7天
 	staticGetOnly : true, //静态是否只能通过get获取
 	staticLv2MaxAge : 1000*60*60, //静态文件2级缓存更新周期，建议设置为1小时
+	staticLv2Number : 10000,//静态文件2级缓存数量，可以根据内存的大小适当调整
 //session配置
 	isSession:true, //是否开启session，开启会影响性能。
 	syncSession:true,//当多进程时是否开启session同步，开启会影响性能。
@@ -63,7 +64,7 @@ module.exports = {
 	MongodbIp:'127.0.0.1', //mongodb地址
 	MongodbPort:27017, //mongodb端口
 	MongodbConnectString:false, //是否使用字符串连接，日入nae的连接方法，这个优先级高于地址+端口
-	MongodbCennectTimeout:1000*30,//连接超时
+	MongodbConnectTimeout:1000*30,//连接超时
 	MongodbMaxConnect:50,//连接池连接数
 	MongodbDefaultDbName:'rrest',//默认使用的数据库名
 	poolLogger:false,//是否记录连接池的日志，建议关闭

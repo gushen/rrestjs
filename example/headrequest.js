@@ -7,6 +7,7 @@ var options = {
 method: 'HEAD',
  //method: 'PUT',
 // method: 'DELETE',
+//	method:'GET',
 };
 
 var req = http.request(options, function(res) {
