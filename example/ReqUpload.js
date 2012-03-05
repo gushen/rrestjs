@@ -1,3 +1,4 @@
+module.exports._rrestjsconfig = require('./config/post.conf.js');
 var http = require('http'),
 	util = require('util'),
 	rrest = require('../'),

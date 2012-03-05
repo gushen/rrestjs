@@ -1,3 +1,4 @@
+module.exports._rrestjsconfig = require('./config/syncsession.conf.js');
 var http = require('http'),
 	rrest = require('../'),
 	server = http.createServer(rrest(function (req, res){

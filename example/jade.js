@@ -1,3 +1,4 @@
+module.exports._conf = require('./config/jade.conf.js');
 var http = require('http'),
 	rrest = require('../'), 
 	i=0,

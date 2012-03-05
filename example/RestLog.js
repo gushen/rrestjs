@@ -1,3 +1,4 @@
+module.exports._config = require('./config/log.conf.js');
 var rrest = require('../');
 restlog.debug('debug');
 restlog.info('info')

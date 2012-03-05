@@ -1,3 +1,4 @@
+module.exports.conf = require('./config/onesession.conf.js');
 var http = require('http'),
 	rrest = require('../'),
     server = http.createServer(rrest(function (req, res) {
@@ -13,4 +14,4 @@ var htmlstr = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "h
 			  '<script>function jsonpback(obj){alert(obj.name);alert(obj.age);}</script>'+
 			  '</head><body>'+
 			  '一个jsonp的例子'+
-			  '<script src="http://10.1.80.3:3000?callback=jsonpback"></script></body></html>'
+			  '<script src="/?callback=jsonpback"></script></body></html>'

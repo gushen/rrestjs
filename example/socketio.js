@@ -1,3 +1,4 @@
+module.exports.conf = require('./config/onesession.conf.js');
 var http = require('http'),
 	rrest = require('../'),
 	io = require('socket.io'),
@@ -19,7 +20,7 @@ socketio.sockets.on('connection', function (socket) {
 
 var html = '<script src="/socket.io/socket.io.js"></script>'+
            '<script>'+
-		   'var socket = io.connect("http://10.1.80.3:3000/");'+
+		   'var socket = io.connect("/");'+
            'socket.on("news", function (data) {'+
            'console.log(data);'+
            'socket.emit("my other event", "connect success");'+

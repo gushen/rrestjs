@@ -1,3 +1,4 @@
+module.exports.conf = require('./config/onesession.conf.js');
 var http = require('http'),
 	rrest = require('../'),
 	RestUtils = require('../lib/RestUtils'),

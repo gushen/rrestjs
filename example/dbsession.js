@@ -1,4 +1,4 @@
-module.exports._appconfig = require('./config/onesession.conf.js');
+module.exports._appconfig = require('./config/dbsession.conf.js');
 var http = require('http'),
 	rrest = require('../'),
     server = http.createServer(rrest(function (req, res) {
@@ -13,7 +13,3 @@ var http = require('http'),
 					}
 				 res.send(++session.count);
 	})).listen(rrest.config.listenPort);
-	
-	setInterval(function(){
-		console.log(process.pid + ' : '+JSON.stringify(_restSession));
-	},3000)

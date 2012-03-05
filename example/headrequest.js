@@ -1,8 +1,9 @@
+module.exports.conf = require('./config/onesession.conf.js');
 var http = require('http');
 var options = {
-  host: '10.1.80.3',
+  host: '10.1.49.225',
   port: 3000,
-  path: '/upload?name=iiiii',
+  path: '/static/evo.jpg?name=iiiii',
   headers:{"content-length":"15", "content-type":"application/x-www-form-urlencoded; charset=UTF-8"},
 method: 'HEAD',
  //method: 'PUT',

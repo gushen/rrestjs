@@ -38,7 +38,8 @@
   
   v0.5升级博客(新增支持ejs模版)：http://snoopyxdy.blog.163.com/blog/static/6011744020121214533543/
 
-  v0.6升级博客(新增支持less)：http://snoopyxdy.blog.163.com/blog/static/60117440201221514687/	
+  v0.6升级博客(新增支持less)：http://snoopyxdy.blog.163.com/blog/static/60117440201221514687/
+
 ##性能测试：
 
   性能测试地址，对比node.js, expressjs和rrestjs: http://snoopyxdy.blog.163.com/blog/static/6011744020120135424340/
@@ -172,6 +173,8 @@
   Response.sendjsonp(content, [statscode, iszlib, issession]): 如果客户端是jsonp跨域请求, 且回调函数放在get参数callback=functionname中, 则只需将计算后的结果content传入此方法，会自动响应 functionname(content);
 
   Response.sendfile(filepath, [callback]): 输出文件给客户端, filepath文件存放绝对地址, callback完成后回调，两个参数err, filebuffer;(注: ranges未经严格测试)
+
+  Response.file(filepath, [callback]):输出文件给客户端, filepath文件存放相对于 baseDir(应用目录) 的绝对地址, callback完成后回调，两个参数err, filebuffer;(注: ranges未经严格测试)
 
   Response.download(filepath, [callback]): 功能同上，这里会加一个下载的http响应头
 
