@@ -3,7 +3,7 @@
   "name" : "rrestjs",
   "description": "HIgh performance node.js ROA & RESTFUL web framework.",
   "keywords": ["rrestjs", "restful", "webframework", "nodejs framework", "express", "expressjs", "ROA", "high performance"],
-  "version": "0.6.7",
+  "version": "0.6.8",
   "url":"http://www.rrestjs.com",
   "homepage": "http://www.rrestjs.com",
   "repository": {

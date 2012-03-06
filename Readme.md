@@ -190,7 +190,8 @@
 
   Response.redirect(url): 跳转到指定的url地址, 少用此功能;
 
-  Response.render(template, [pageNumber, options, callback]):  目前仅支持jade和ejs模版，ejs和jade输出API相同，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug
+  Response.render(template, [pageNumber, options, callback]):  目前仅支持jade和ejs模版，ejs和jade输出API相同，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug,
+  Response.render用法：Response.render(template) 不传参无回调，Response.render(template, options) 传参无回调，Response.render(template, callback) 传参有回调，Response.render(template, options, callback) 传参有回调无分页，Response.render(template, pageNumber, callback) 不参有回调有分页，Response.render(template, pageNumber, options, callback) 全部参数
   
 ##AutoRequire: 自动加载 /modules 文件夹中的模块, 可以在config配置文件中详细配置开启或者例外
 

@@ -28,7 +28,7 @@ module.exports = {
 	CLusterLog:false,//是否打开cluster自带的控制台信息，生产环境建议关闭
 	adminListenPort:20910,//管理员监听端口号
 	adminAuthorIp:/^10.1.49.223$/,//允许访问管理的IP地址
-	ClusterNum:2, //开启的进程数
+	ClusterNum:1, //开启的进程数
 	ClusterReload:'/example',//只有当进程数为1时，进入开发模式，可以监听此文件夹下的改动，包括子文件夹，不用重复 ctrl+c 和 上键+enter		
 //静态文件配置
 	statciMaxAge : 86400000*7, //静态文件的缓存周期，建议设置为7天
@@ -43,7 +43,7 @@ module.exports = {
 	clearSessionSetInteval:1000*60*60, //自动清理垃圾session时间，建设设置为1小时
 	clearSessionTime:1000*60*60*24,//会话session超时，建议设置为1天
 //session内存存储
-	sessionDbStore:true,//是否使用mongodb数据库存储session，如果设置为true，则不需要同步session
+	sessionDbStore:false,//是否使用mongodb数据库存储session，如果设置为true，则不需要同步session
 //deflate和gzip配置
 	isZlib:true, //是否开启delate和gizp压缩，大并发压缩虽然可以减少传输字节数，但是会影响性能
 	ZlibArray:['text/plain', 'application/javascript', 'text/css', 'application/xml', 'text/html'], //只压缩数组中的content-type响应
@@ -60,7 +60,7 @@ module.exports = {
 	tempCacheTime:1000*60*60,//模版缓存时间
 	tempCacheFolder:'/tmp/template', //模版缓存 存放目录
 //mongodb 配置
-	isMongodb:true, //是否开启mongodb支持，注意：如果使用数据库存储session，这里必须开启
+	isMongodb:false, //是否开启mongodb支持，注意：如果使用数据库存储session，这里必须开启
 	MongodbIp:'127.0.0.1', //mongodb地址
 	MongodbPort:27017, //mongodb端口
 	MongodbConnectString:false, //是否使用字符串连接，日入nae的连接方法，这个优先级高于地址+端口
