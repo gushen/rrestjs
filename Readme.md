@@ -10,7 +10,7 @@
 
   3、用户根据请求路径，找到user.js文件，然后执行其中的face方法，根据请求的method和uid，用户可以自由的响应不同的内容
 
-##项目演示网址：http://rrestjs.cnodejs.net
+##项目演示网址：http://www.rrestjs.com
 
   利用rrestjs框架搭建的一个基于mongodb和nodejs的个人小站，有jade模版输出和留言板的小应用，代码在本例 app 文件夹中。
 

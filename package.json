@@ -3,9 +3,9 @@
   "name" : "rrestjs",
   "description": "HIgh performance node.js ROA & RESTFUL web framework.",
   "keywords": ["rrestjs", "restful", "webframework", "nodejs framework", "express", "expressjs", "ROA", "high performance"],
-  "version": "0.6.6",
-  "url":"https://github.com/DoubleSpout/rrestjs",
-  "homepage": "http://rrestjs.cnodejs.net",
+  "version": "0.6.7",
+  "url":"http://www.rrestjs.com",
+  "homepage": "http://www.rrestjs.com",
   "repository": {
     "type": "git",
     "url": "git@github.com:DoubleSpout/rrestjs.git"
