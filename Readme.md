@@ -133,6 +133,8 @@
   并且由于部分示例需要调整 /config/example_config.js 文件夹中的内容或者依赖mongodb，所以想要正常运行部分示例需要先安装 mongodb v2.0 及以上，然后可能需要手动去修改config配置内容来运行它
 
 ##API
+
+  说明：[]内表示可选参数，但是必须根据顺序传递，如果是fn([arg1], [arg2])，表示arg1或者arg2都是可选参数，并且无需根据顺序
   
   api属性和方法都为小写, 加上"()"的为方法，没有的是属性，还有一些特有功能的使用帮助和示例
 
@@ -178,6 +180,8 @@
 
   Response.download(filepath, [callback]): 功能同上，这里会加一个下载的http响应头
 
+  Response.r404([filepath], [callback]):输出404页面，如果不传参数，则会默认去读取baseDir下的404.html文件（utf-8哦，亲），如果文件不存在，则读取默认，否则会根据filepath读取404页面并输出（只支持静态文件），fn为回调接收2个参数err, 404页面string。
+  
   Response.clearcookie(name): 清除指定名称的cookie值 
 
   Response.cookie(name, val, [options]): 设置客户端cookie, 名/值, options:{maxAge:过期时间(毫秒), path:'/', httponly:true, domain:域名, secure:false(https上传输)};(注: 这里修正了expressjs的一个bug, 如需设置多个cookie, 多次调用此方法)
