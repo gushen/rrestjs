@@ -1,11 +1,12 @@
+//拖拽上传的控制器
 var home = {},
 	title = _rrest.config.webtitle;
 home.index = function(req, res){
-	res.sendfile(__dirname+'/../static/skin/dropExample/droptest.html');
+	res.file('/view/static/dropExample/droptest.html');
 	return;
 }
 home.multi = function(req, res){
-	res.sendfile(__dirname+'/../static/skin/dropExample/multiUpload.html');
+	res.file('/view/static/dropExample/multiUpload.html');
 	return;
 }
 home.upload = function(req, res){
@@ -13,5 +14,4 @@ home.upload = function(req, res){
 	res.sendjson({res: 'success', size:size});
 	return;
 }
-
 module.exports = home; 
