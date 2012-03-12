@@ -202,7 +202,7 @@
         
 	Response.render(template, options, callback) 传参有回调无分页，
         
-	Response.render(template, pageNumber, callback) 不参有回调有分页，
+	Response.render(template, pageNumber, options) 传参无回调有分页，
         
 	Response.render(template, pageNumber, options, callback) 全部参数，
         
