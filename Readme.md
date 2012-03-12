@@ -191,14 +191,22 @@
   Response.redirect(url): 跳转到指定的url地址, 少用此功能;
 
   Response.render(template, [pageNumber, options, callback]):目前仅支持jade和ejs模版，ejs和jade输出API相同，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug,
-     Response.render用法：
-     Response.render(template) 不传参无回调，
-     Response.render(template, options) 传参无回调，
-     Response.render(template, callback) 传参有回调，
-     Response.render(template, options, callback) 传参有回调无分页，
-     Response.render(template, pageNumber, callback) 不参有回调有分页，
-     Response.render(template, pageNumber, options, callback) 全部参数，
-     注：此方法当出错时自动响应err页面
+        
+	Response.render用法：
+        
+	Response.render(template) 不传参无回调，
+       
+	Response.render(template, options) 传参无回调，
+        
+	Response.render(template, callback) 传参有回调，
+        
+	Response.render(template, options, callback) 传参有回调无分页，
+        
+	Response.render(template, pageNumber, callback) 不参有回调有分页，
+        
+	Response.render(template, pageNumber, options, callback) 全部参数，
+        
+	注：此方法当出错时自动响应err页面
   
   Response.compiletemp(template, [pageNumber, options, callback]):用法同Response.render，只是这个方法callback返回(err, htmlString)，只返回编译过后的html字符串，无论出错err与否都不会自动响应客户端的请求，
 
