@@ -1,5 +1,4 @@
 var home = {},
-	jade = require('jade'),
 	fs = require('fs'),
 	pagenum = 20,//首页发送20条数据
 	fdate = _rrest.mod.stools.fdate,//实用工具模块
@@ -91,10 +90,11 @@ home.initial = function(){ //初始化
 }();
 
 home.index = function(req, res){
-	var sname = req.getparam['sname'] || true;
+	var sname = req.getparam['sname'] || true,
+		email = req.session.email || '';
 	if(!sname){sname = htmltostring(sname);}
 	getmsg(sname, true, pagenum, function(err, msgarray, total){
-		if(!err) res.render('/message.jade', {pagetitle:_rrest.config.webtitle+'-留言板', h1class:'h1_p', msg:msgarray, total:total});
+		if(!err) res.render('/message.jade', {pagetitle:_rrest.config.webtitle+'-留言板', h1class:'h1_p', msg:msgarray, total:total, email:email});
 	})
 }
 
@@ -123,11 +123,8 @@ home.more = function(req, res, pathobj){//获得更多接口
 			restlog.error('getmore错误：'+err);
 		}
 		else{
-			var path = _rrest.config.baseDir+_rrest.config.tempFolder+'/include/msg.jade';
-			fs.readFile(path, 'utf-8', function(err, html){
+			res.compiletemp('/include/msg.jade', {msg:msgarray}, function(err, data){
 				if(err) return res.sendjson({"suc":0,"fail":"获取失败2"});
-				var jr = jade.compile(html, {filename:path, pretty: true }),
-					data = jr({msg:msgarray});
 				res.sendjson({"suc":1,"content":data});
 			});
 		} 
@@ -171,6 +168,7 @@ home.send = function(req, res){
 	if(content.length>150){
 			return res.sendjson({"suc":0,"fail":"内容过长"});
 		}
+	req.session.email = name;//将用户传入的name值设置session，方便用户重复输入
 	var sendc = function(ca_bool){//对比完验证码执行
 		if(!pid || pid.length !== 24){pid=0;}
 		if(!ca_bool){

@@ -24,7 +24,7 @@ body
            form#send(action="/message/send", method="GET")
              p.i_i.sub
                |邮箱：
-               input#name(autocomplete="off", maxlength="45", value="",  name="name")
+               input#name(autocomplete="off", maxlength="45", value="#{email}",  name="name")
                <br/>
                |内容：
                input#content(autocomplete="off", maxlength="145", value="",name="content")
