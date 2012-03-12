@@ -1,4 +1,4 @@
-module.exports._conf = require('./config/jade.conf.js');
+module.exports._conf = require('./config/jade.nocache.conf.js');
 var http = require('http'),
 	rrest = require('../'), 
 	i=0,

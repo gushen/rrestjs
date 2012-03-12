@@ -8,3 +8,4 @@ var http = require('http'),
 _rrest = rrest; //全局变量
 _logger = restlog;
 _pool = rrest.mpool;
+
