@@ -191,7 +191,14 @@
   Response.redirect(url): 跳转到指定的url地址, 少用此功能;
 
   Response.render(template, [pageNumber, options, callback]):目前仅支持jade和ejs模版，ejs和jade输出API相同，输出jade模版, template:'模版相对config设置中模版地址的地址', 比如模版地址设置为:'/temp/jade', 则输出'/user/index.jade'就相当于输出了'/temp/jade/user/index.jade', options: 传入jade模版的对象, callback: 模版输出回调两个参数err, jadestring, pageNumber的作用是分页缓存，将页面或其他唯一标识发送给模版，让其生成不同缓存，解决不同分页显示同一模版的bug,
-  Response.render用法：Response.render(template) 不传参无回调，Response.render(template, options) 传参无回调，Response.render(template, callback) 传参有回调，Response.render(template, options, callback) 传参有回调无分页，Response.render(template, pageNumber, callback) 不参有回调有分页，Response.render(template, pageNumber, options, callback) 全部参数，注：此方法当出错时自动响应err页面
+    1. Response.render用法：
+    2. Response.render(template) 不传参无回调，
+    3. Response.render(template, options) 传参无回调，
+    4. Response.render(template, callback) 传参有回调，
+    5. Response.render(template, options, callback) 传参有回调无分页，
+    6. Response.render(template, pageNumber, callback) 不参有回调有分页，
+    8.Response.render(template, pageNumber, options, callback) 全部参数，
+    注：此方法当出错时自动响应err页面
   
   Response.compiletemp(template, [pageNumber, options, callback]):用法同Response.render，只是这个方法callback返回(err, htmlString)，只返回编译过后的html字符串，无论出错err与否都不会自动响应客户端的请求，
 
@@ -202,10 +209,10 @@
 ##MongdbConnect: Mongodb数据库连接,可在config配置文件中详细配置, 比如: 连接数, 连接端口等等
 
   ps：如果您是使用nae的话，需要将config如下设置：
-
+        
         MongodbConnectString:'mongo://r64rbc7amkny1:a16275kaxau@127.0.0.1:20088/nYSeIX8aUOnb',//在nae提供的字符串前加上mongo://
 
-	MongodbDefaultDbName:'nYSeIX8aUOnb',//nae提供的数据库名
+        MongodbDefaultDbName:'nYSeIX8aUOnb',//nae提供的数据库名
 
   require('rrestjs').mongo(callback, [dbname]): callback三个参数:err, db, release方法, err表示错误, db是Mongodb数据库实例, release()方法执行表示归还连接到连接池, 操作完数据库一定要执行release(); 出错err会自动归还
   
