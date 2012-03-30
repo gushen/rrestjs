@@ -26,7 +26,7 @@
 
   2、直接从github上打包下载  
 
-##框架介绍：目前是0.4版本，unstable版本
+##框架介绍：目前是0.6版本，unstable版本
  
   社区文章： http://club.cnodejs.org/topic/4f16442ccae1f4aa27001039
 
